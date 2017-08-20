@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  {{>_head}}
+  <body>
+    <div class="toDo-table">
+      <h1>To Do List</h1>
+      <form action="/todo" method="POST">
+        <input type="text" name="addTask" placeholder="...what do you have ToDo?...">
+      </form>
+      <ul>
+        {{#toDoS}}
+        <li class="lstItm">{{item}}</li>
+        {{/toDoS}}
+      </ul>
+    </div>
+    <script>
+      let listItem = document.querySelectorAll('li.lstItm');
+      for (let i in listItem) {
+        listItem[i].onclick = function() {
+          listItem[i].style.textDecoration = 'line-through';
+        }
+      }
+    </script>
+  </body>
+</html>

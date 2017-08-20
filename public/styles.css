@@ -1,0 +1,52 @@
+* {
+  background-color: #DCDDDF;
+}
+.toDo-table {
+  background-color: #8C8F95;
+  width: 50%;
+  margin: 4em auto;
+}
+h1 {
+  background-color: inherit;
+  text-align: center;
+  color: #fff;
+  font-size: 3em;
+  padding: .25em;
+}
+form {
+  margin: 1em auto;
+  text-align: center;
+  background-color: inherit;
+  color: #fff;
+}
+input[type=text] {
+  font-size: 1.5em;
+  padding: .15em;
+  overflow: hidden;
+  width: 25em;
+}
+/*button {
+  font-size: 1.5em;
+  padding: .15em .75em;
+  color: green;r
+  background-color: transparent;
+}*/
+ul {
+  list-style: none;
+  background-color: inherit;
+  color: #000;
+  text-align: center;
+  padding: 1em;
+}
+li {
+  margin: 1em auto;
+  background-color: #CDCFD4;
+  font-size: 1.5em;
+  padding: .5em;
+}
+li:hover {
+  background-color: orange;
+}
+a:target {
+  text-decoration: line-through;
+}
