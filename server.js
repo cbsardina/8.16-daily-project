@@ -5,6 +5,7 @@ const app = express();
 const mustacheExpress = require('mustache-express');
 const dal = require('./dal');
 const bodyParser = require('body-parser');
+const routes = require('./routes/routes');
 
 // Register '.mustache' extension with The Mustache Express
 app.engine('mustache', mustacheExpress());
@@ -18,72 +19,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // set up public directory for express use
 app.use(express.static('public'));
 
-/////////////////////////////////////////////////
-////////////////ROUTES///////////////////////////
-app.get("/", (req, res) => {
-    res.redirect('/todo')
-})
+// =========== ROUTER =========================//
 
-app.get('/todo', (req, res) => {
-  const toDoS = dal.getToDos();       //THIS WORKS
-  res.render('todo', {toDoS: toDoS});
-})
-
-app.post('/todo', (req, res) => {       //check this
-  dal.addToDo(req.body.addTask);
-  res.redirect('todo');
-});
-
-app.delete('/todo:item', (req, res) => {
-  toDoData = data.filter(function(todo){
-    return todo.item.replace(/ /g, '-') !== req.params.item;
-  });
-      res.JSON(toDoData);
-});
-
-
-
-
-
-
-
-
-
-// let server = http.createServer(function(req, res) {
-//   console.log('request was made:' + req.url);
-//   if(req.url === '/home' || req.url === '/') {
-//     res.writeHead(200, {'Content-Type': 'text/html'});
-//     fs.createReadStream(__dirname + '/index.html').pipe(res);
-//   }
-//   else if (req.url === '/contact') {
-//     res.writeHead(200, {'Content-Type': 'text/html'});
-//     fs.createReadStream(__dirname + '/contact.html').pipe(res);
-//   }
-//   else if (req.url === '/api/ninjas') {
-//     let ninjas = [{name: 'ryu', age: 29}, {name: 'yoshi', age: 32}];
-//     res.writeHead(200, {'Content-Type': 'application/json'});
-//     res.end(JSON.stringify(ninjas));
-//   }
-//   else {
-//     res.writeHead(404, {'Content-Type': 'text/html'});
-//     fs.createReadStream(__dirname + '/404.html').pipe(res);
-//   }
-// })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+app.use('/', routes);
 
 
 // =========== PORT SETUP =========================//
@@ -92,3 +30,44 @@ app.set('port', 3000)
 app.listen(app.get('port'), function () {
   console.log('Application has started at port 3000')
 })
+
+
+
+
+
+
+
+
+
+
+// ====================== ORIGINAL ================
+// app.get('/', (req, res) => {
+//   const toDoS = dal.getToDos();
+//   const doneToDoS = dal.getCheckedToDos();
+//   res.render('todo', {toDoS: toDoS, doneToDoS: doneToDoS});
+// })
+//
+// app.post('/', (req, res) => {
+//   dal.addToDo(req.body.addTask);
+//   res.redirect('/');
+// });
+//
+// app.post('/complete/:index', (req, res) => {
+//   dal.checkToDo(parseInt(req.params.index, 10));
+//   res.redirect('/');
+// })
+//
+// app.post('/delete/:index', (req, res) => {
+//   let check = dal.deleteToDo(parseInt(req.params.index, 10));
+//   let check2 = req.params.index;
+//   res.redirect('/')
+// })
+// app.get('/edit/:index', (req, res) => {
+//   let getToDo = dal.getEditToDo(parseInt(req.params.index, 10));
+//   res.render('editToDo', getToDo)
+// })
+//
+// app.post('/edit/:index', (req, res) => {
+//   dal.editToDo(parseInt(req.params.index, 10), req.body);
+//   res.redirect('/');
+// })

@@ -1,25 +1,49 @@
 <!DOCTYPE html>
 <html>
-  {{>_head}}
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="./styles.css">
+    <title>To Do List App</title>
+  </head>
+
   <body>
-    <div class="toDo-table">
+
+<!-- ToDo heading and input -->
+    <div class="toDo-main">
       <h1>To Do List</h1>
-      <form action="/todo" method="POST">
+      <form action="/" method="POST">
         <input type="text" name="addTask" placeholder="...what do you have ToDo?...">
       </form>
+
+<!-- ToDo list - not completed -->
       <ul>
         {{#toDoS}}
-        <li class="lstItm">{{item}}</li>
+        <li>
+        <!-- checkmark complete button -->
+          <form class="checkComplete" action="/complete/{{index}}" method="POST">
+            <button type="submit" name="complete" data-id="{{index}}"><img src="http://vector.me/files/images/1/9/191665/anselmus_green_checkmark_and_red_minus_clip_art.jpg" alt="Green Checkmark">
+            </button>
+          </form>
+        <!-- ToDo item    -->
+          <p class="lstItm">{{item}}</p>
+
+        <!-- Edit link -->
+          <a href="/edit/{{index}}"><img src="https://openclipart.org/image/2400px/svg_to_png/224192/Mini-pencil-icon-white-background.png" alt="Pencil edit image"></a>
+        </li>
         {{/toDoS}}
       </ul>
-    </div>
-    <script>
-      let listItem = document.querySelectorAll('li.lstItm');
-      for (let i in listItem) {
-        listItem[i].onclick = function() {
-          listItem[i].style.textDecoration = 'line-through';
-        }
-      }
-    </script>
+
+<!-- Completed ToDo's list  -->
+      <ul class="toDo-done">
+        {{#doneToDoS}}
+          <li>
+            <p>{{item}}</p>
+            <form class="delete" action="/delete/{{index}}" method="POST">
+              <button type="submit" name="delete" data-id="{{index}}">DELETE</button>
+            </form>
+          </li>
+        {{/doneToDoS}}
+      </ul>
+      
   </body>
 </html>
